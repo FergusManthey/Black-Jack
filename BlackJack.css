@@ -1,8 +1,15 @@
+
+html {
+    background-color: #181C14;
+}
+
 h2 {
     font-family: "Oswald", serif;
     font-optical-sizing: auto;
     font-weight: 700px;
     font-style: normal;
+    text-align: center;
+    background-color: #697565;
 }
 
 p {
@@ -10,17 +17,28 @@ p {
     font-optical-sizing: auto;
     font-weight: 450px;
     font-style: normal;
-    font-size: 20px;   
+    font-size: 20px;
+    background-color: #3C3D37;   
 }
 
-button {
-    font-family: "PT Sans Narrow", serif;
-    font-weight: 400;
-    font-style: normal;
+div {
+    text-align: center;
+    background-color: #697565;
+    color: #40534C;
 }
 
 button {
     font-family: "PT Sans Narrow", serif;
     font-weight: 700;
     font-style: normal;
+    border-radius: 15px;
+    background-color: #40534C;
+}
+
+p {
+    text-align: center;
+}
+
+button:hover {
+    background-color: #346751;
 }
