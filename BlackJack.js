@@ -81,12 +81,12 @@ function stopYou() {
         dealerHits.innerHTML += randomNumber2 + "&nbsp;" + "&nbsp;" + "&nbsp;";
     }
 
-       if (dealerScore < playerScore) {
+    if (dealerScore < playerScore) {
         let randomNumber2 = Math.floor(Math.random() * 9) + 2;
         dealerScore += randomNumber2;
         dealerHits.innerHTML += randomNumber2 + "&nbsp;" + "&nbsp;" + "&nbsp;";
     }
-    
+
     // Aktuellen Punktestand des Dealers anzeigen
     let paragraph = document.getElementById('dealerScore');
     paragraph.innerHTML = 'Dealers Punktzahl ist:' + '&nbsp;' + dealerScore + "&nbsp;";

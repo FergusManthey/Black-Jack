@@ -1,0 +1,26 @@
+h2 {
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 700px;
+    font-style: normal;
+}
+
+p {
+    font-family: "Teko", serif;
+    font-optical-sizing: auto;
+    font-weight: 450px;
+    font-style: normal;
+    font-size: 20px;   
+}
+
+button {
+    font-family: "PT Sans Narrow", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+button {
+    font-family: "PT Sans Narrow", serif;
+    font-weight: 700;
+    font-style: normal;
+}
