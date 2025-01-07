@@ -1,6 +1,7 @@
 // if you press start 
 
 const startButton = document.querySelector('.start'); 
+const restartButton = document.querySelector('.restart')
 
 let playerScore = 0;
 let dealerScore = 0;
@@ -37,9 +38,13 @@ function showDealerScore() {
     paragraph.innerHTML ='Dealers Punktzahl ist:' + '&nbsp;' + dealerScore + "&nbsp;";
 };
 
-startButton.addEventListener('click', startYou);
-
-startButton.addEventListener('click', startDealer);
+startButton.addEventListener('click', () => {
+    if (betAmount === 0) {
+    } else {
+        startYou();
+        startDealer();
+    }
+});
 
 // if you press Hit
 
@@ -107,13 +112,101 @@ function stopYou() {
 
 stopButton.addEventListener('click', stopYou);
 
-//if you press restart
-
-const restartButton = document.querySelector('.restart');
-
-// reload the current page
+// Wenn der Restart-Button gedrückt wird
 function restart() {
-    window.location.reload();
+    // Punktzahlen zurücksetzen
+    playerScore = 0;
+    dealerScore = 0;
+
+    // Die HTML-Elemente für Spieler und Dealer zurücksetzen
+    document.getElementById('you').innerHTML = '';
+    document.getElementById('dealer').innerHTML = '';
+    document.getElementById('playerScore').innerHTML = 'Deine Punktzahl: 0';
+    document.getElementById('dealerScore').innerHTML = 'Dealers Punktzahl ist: 0';
+
+    // Einsatz zurücksetzen
+    betAmount = 0;
+    betParagraph.innerHTML = 'Einsatz: $0';
+
+    // Zeige das Guthaben an
+    updateMoneyDisplay();
+    
+    // Eventuelle Benachrichtigungen entfernen
+    window.alert("Das Spiel wurde zurückgesetzt. Du kannst einen neuen Einsatz setzen und das Spiel erneut starten.");
 }
 
+// Ereignis für den Restart-Button
 restartButton.addEventListener('click', restart);
+
+
+// Startkapital und Einsatz
+let playerMoney = 100; // Startguthaben
+let betAmount = 0; // Aktueller Einsatz
+
+// HTML-Elemente für Guthaben und Einsatz
+const moneyParagraph = document.getElementById('playerMoney');
+const betParagraph = document.getElementById('betAmount');
+const betButton = document.querySelector('.bet');
+
+// Funktion zum Aktualisieren der Guthabenanzeige
+function updateMoneyDisplay() {
+    moneyParagraph.innerHTML = `Guthaben: $${playerMoney}`;
+    betParagraph.innerHTML = `Einsatz: $${betAmount}`;
+}
+
+// Funktion zum Setzen eines Einsatzes
+function setBet() {
+    if (playerMoney >= 10) { // Mindesteinsatz prüfen
+        betAmount += 10;
+        playerMoney -= 10;
+        updateMoneyDisplay();
+    } else {
+        window.alert("Nicht genug Guthaben für diesen Einsatz!");
+    }
+}
+
+// Gewinne oder Verluste verrechnen
+function handleResult(result) {
+    if (result === "win") {
+        playerMoney += betAmount * 2; // Spieler gewinnt das Doppelte seines Einsatzes
+        window.alert(`Du hast gewonnen! Dein Gewinn beträgt $${betAmount * 2}`);
+    } else if (result === "lose") {
+        window.alert(`Du hast verloren! Dein Einsatz von $${betAmount} ist weg.`);
+    } else if (result === "push") {
+        playerMoney += betAmount; // Einsatz zurück bei Unentschieden
+        window.alert("Unentschieden! Einsatz zurückerstattet.");
+    }
+    betAmount = 0; // Einsatz zurücksetzen
+    updateMoneyDisplay();
+
+    if (playerMoney <= 0) {
+        window.alert("Spiel vorbei! Du hast kein Geld mehr.");
+        restart();
+    }
+}
+
+// Start-Button erweitern
+startButton.addEventListener('click', () => {
+    if (betAmount === 0) {
+        window.alert("Setze zuerst einen Einsatz, bevor du startest!");
+        return;
+    }
+});
+
+
+stopButton.addEventListener('click', () => {
+    stopYou();
+    if (dealerScore > 21 || playerScore > dealerScore) {
+        handleResult("win");
+    } else if (dealerScore === playerScore) {
+        handleResult("push");
+    } else {
+        handleResult("lose");
+    }
+});
+
+
+betButton.addEventListener('click', setBet);
+
+
+updateMoneyDisplay();

@@ -1,9 +1,10 @@
 
 html {
-    background-color: #181C14;
+    background:
+    url("https://media.istockphoto.com/photos/seamless-dark-green-felt-background-picture-id1044409406?k=6&m=1044409406&s=612x612&w=0&h=FdFCgmbkcdnc3XjioghmHls63kPElxQDRdHZ14o0pyY=");
 }
 
-h2 {
+.money-title {
     font-family: "Oswald", serif;
     font-optical-sizing: auto;
     font-weight: 700px;
@@ -11,7 +12,8 @@ h2 {
     text-align: center;
     background-color: #697565;
     border-radius: 100px;
-    border: 3px  dotted #3B5249;
+    border: 3px  solid #3B5249;
+    color: black;
 }
 
 .textStuff {
@@ -20,8 +22,10 @@ h2 {
     font-weight: 450px;
     font-style: normal;
     font-size: 20px;
-    background-color: #3C3D37;   
+    background-color: #616161;   
     border-radius: 100px;
+    border-color: #404f49;
+    color: black;
 }
 
 div {
@@ -43,15 +47,91 @@ p {
     text-align: center;
 }
 
-button:hover {
-    background-color: #346751;
-}
 #textExtra {
     font-family: "Teko", serif;
     font-optical-sizing: auto;
     font-weight: 450px;
     font-style: normal;
     font-size: 20px;
-    background-color: #3C3D37;   
+    background-color: #616161;   
     border-radius: 25px;
 }
+
+.div-buttons {
+    border: 3px  solid #3B5249;
+}
+
+.rules {
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 700px;
+    font-style: normal;
+    text-align: center;
+    background-color: #697565;
+    border-radius: 100px;
+    border: 3px  solid #3B5249;
+    color: black;
+}
+
+title {
+    margin: 1px;
+    margin-top: 1px;
+}
+
+.start {
+    background: #3B5249;
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+  .front {
+    display: block;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    background: #346751;
+    color: white;
+    transform: translateY(-6px);
+  }
+
+  .start:active .front {
+    transform: translateY(-2px);
+  }
+
+  .hit {
+    background: #3B5249;
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+
+  .hit:active .front {
+    transform: translateY(-2px);
+  }
+
+  .stop {
+    background: #3B5249;
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+
+  .stop:active .front {
+    transform: translateY(-2px);
+  }
+
+  .restart {
+    background: #3B5249;
+    border-radius: 12px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+  }
+

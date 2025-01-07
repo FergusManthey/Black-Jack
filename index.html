@@ -13,12 +13,40 @@
 <body>
     <script defer src="BlackJack.js"></script>
 
+<div>
+    <p id="playerMoney">Guthaben: $100</p>
+    <p id="betAmount">Einsatz: $0</p>
+    <button class="bet">Set Bet (10$)</button>
+</div>
+
+    <div class="money-title">
     <h2 class="title">BLACK JACK</h2>
-    <div>
-    <button class="start">Start</button>
-    <button class="hit">Hit</button>
-    <button class="stop">Stop</button>
-    <button class="restart">Restart</button>
+    </div>
+
+    <div class="div-buttons">
+    <button class="start">
+        <span class="front">
+            Start
+        </span>
+    </button>
+    
+    <button class="hit">
+        <span class="front">
+        Hit
+        </span>
+    </button>
+
+    <button class="stop">
+        <span class="front">
+        Stop
+        </span>
+    </button>
+
+    <button class="restart">
+        <span class="front">
+        Restart
+        </span>
+    </button>
     </div>
 
     <p class="textStuff" id="you">YOU&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -27,7 +55,7 @@
     <p class="textStuff" id="playerScore">Deine Punktzahl:&nbsp;</p>
     <p class="textStuff" id="dealerScore">Dealer Punktzahl:&nbsp;</p>
     
-    <h2>RULES</h2>
+    <h2 class="rules">RULES</h2>
     <p id="textExtra">In this simplified Blackjack game,
     the goal is to have a score as close to 21 
     as possible without exceeding it. 
