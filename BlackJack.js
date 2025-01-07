@@ -1,9 +1,9 @@
-const startButton = document.querySelector('.start');
+// if you press start
+const startButton = document.querySelector('.start'); 
 const restartButton = document.querySelector('.restart');
-
 let playerScore = 0;
 let dealerScore = 0;
-let playerMoney = 100;
+let playerMoney = 100; 
 let betAmount = 0;
 
 const moneyParagraph = document.getElementById('playerMoney');
@@ -16,109 +16,105 @@ function updateMoneyDisplay() {
 }
 
 function startYou() {
-    // Startkarten für den Spieler ziehen
-    let randomNumber1 = Math.floor(Math.random() * 9) + 2;
+    let randomNumber = Math.floor(Math.random() * 9) + 2;
     let randomNumber2 = Math.floor(Math.random() * 9) + 2;
-    playerScore = randomNumber1 + randomNumber2;
+    playerScore = playerScore + randomNumber + randomNumber2;
     
-    // Karten werden dem bestehenden Inhalt hinzugefügt
     let paragraph = document.getElementById('you');
-    paragraph.innerHTML = `${randomNumber1} &nbsp;&nbsp;&nbsp; ${randomNumber2} &nbsp;&nbsp;&nbsp;`;
-
+    paragraph.innerHTML += randomNumber + "&nbsp;" + "&nbsp;" + "&nbsp;";
+    paragraph.innerHTML += randomNumber2 + "&nbsp;" + "&nbsp;" + "&nbsp;";
+    
     showPlayerScore();
 };
 
 function startDealer() {
-    // Startkarten für den Dealer ziehen
-    let randomNumber1 = Math.floor(Math.random() * 9) + 2;
+    let randomNumber = Math.floor(Math.random() * 9) + 2;
     let randomNumber2 = Math.floor(Math.random() * 9) + 2;
-    dealerScore = randomNumber1 + randomNumber2;
+    dealerScore = dealerScore + randomNumber + randomNumber2;
     
-    // Karten werden dem bestehenden Inhalt hinzugefügt
     let paragraph = document.getElementById('dealer');
-    paragraph.innerHTML = `${randomNumber1} &nbsp;&nbsp;&nbsp; ${randomNumber2} &nbsp;&nbsp;&nbsp;`;
-
+    paragraph.innerHTML += randomNumber + "&nbsp;" + "&nbsp;" + "&nbsp;";
+    paragraph.innerHTML += randomNumber2 + "&nbsp;" + "&nbsp;" + "&nbsp;";
+    
     showDealerScore();
 };
 
 function showPlayerScore() {
     let paragraph = document.getElementById('playerScore');
-    paragraph.innerHTML = `Deine Punktzahl: ${playerScore} &nbsp;`;
+    paragraph.innerHTML = 'Deine Punktzahl:' + '&nbsp;' + playerScore + "&nbsp;";
 };
 
 function showDealerScore() {
     let paragraph = document.getElementById('dealerScore');
-    paragraph.innerHTML = `Dealers Punktzahl ist: ${dealerScore} &nbsp;`;
+    paragraph.innerHTML = 'Dealers Punktzahl ist:' + '&nbsp;' + dealerScore + "&nbsp;";
 };
 
 startButton.addEventListener('click', () => {
     if (betAmount === 0) {
         window.alert("Setze zuerst einen Einsatz, bevor du startest!");
     } else {
+        // Deaktiviere den Start-Button, damit er nicht mehr gedrückt werden kann
+        startButton.disabled = true;
+
         startYou();
         startDealer();
     }
 });
 
+// Verhindern, dass der Start-Button erneut gedrückt werden kann, bis das Spiel zurückgesetzt wird
+
 const hitButton = document.querySelector('.hit');
 
 function hitYou() {
-    let randomNumber = Math.floor(Math.random() * 9) + 2;
-    playerScore += randomNumber;
-
+    let randomNumber2 = Math.floor(Math.random() * 9) + 2;
+    playerScore = randomNumber2 + playerScore;
+    
     let paragraph = document.getElementById('you');
-    paragraph.innerHTML += `${randomNumber} &nbsp;&nbsp;&nbsp;`;
+    paragraph.innerHTML += randomNumber2 + "&nbsp;" + "&nbsp;" + "&nbsp;";
+    
+    // Überprüfe, ob der Spieler mehr als 21 Punkte hat
+    if (playerScore > 21) {
+        let resultMessage = `Du hast verloren! Deine Punktzahl ist über 21! Dein Einsatz von $${betAmount} ist weg.`;
+        handleResult("lose");
+        window.alert(resultMessage); // Anzeige der Nachricht, dass der Spieler verloren hat
+    }
 
-    hitscore();
+    hitscore();  // Aktualisiere die Anzeige der Punktzahl
 }
 
 function hitscore() {
     let paragraph = document.getElementById('playerScore');
-    paragraph.innerHTML = `Deine Punktzahl: ${playerScore} &nbsp;`;
+    paragraph.innerHTML = 'Deine Punktzahl:' + '&nbsp;' + playerScore + "&nbsp;";
 }
 
 hitButton.addEventListener('click', hitYou);
 
 const stopButton = document.querySelector('.stop');
 
-stopButton.addEventListener('click', () => {
-    if (playerScore <= 21) {
-        stopYou();  // Wenn der Spieler nicht über 21 ist, kann er stoppen
-    } else {
-        window.alert("Du hast bereits über 21 Punkte! Das Spiel ist vorbei.");
-    }
-});
-
-// Wenn du auf "Stop" drückst, wird der Dealer seinen Zug machen.
 function stopYou() {
     let dealerHits = document.getElementById('dealer');
     
-    // Dealer zieht Karten, bis mindestens 17 Punkte erreicht sind.
     while (dealerScore < 17) {
         let randomNumber = Math.floor(Math.random() * 9) + 2;
         dealerScore += randomNumber;
         dealerHits.innerHTML += `${randomNumber} &nbsp;&nbsp;&nbsp;`;
     }
 
-    // Zeige die endgültige Punktzahl des Dealers an.
     let paragraph = document.getElementById('dealerScore');
     paragraph.innerHTML = `Dealers Punktzahl ist: ${dealerScore} &nbsp;`;
 
-    // Überprüfe, ob der Dealer mehr als 21 Punkte hat
     if (dealerScore > 21) {
         let resultMessage = `Dealer hat über 21! Du hast gewonnen! Dein Gewinn beträgt $${betAmount * 2}`;
         handleResult("win");
         window.alert(resultMessage);
     } else {
-        // Wenn der Dealer weniger als 21 Punkte hat, überprüfe die Spielergebnisse
         determineWinner();
     }
 }
 
-// Diese Funktion entscheidet den Gewinner basierend auf den Punktzahlen.
 function determineWinner() {
     let resultMessage = '';
-
+    
     if (playerScore > 21) {
         resultMessage = `Du hast verloren! Deine Punktzahl ist über 21! Dein Einsatz von $${betAmount} ist weg.`;
         handleResult("lose");
@@ -133,11 +129,9 @@ function determineWinner() {
         handleResult("win");
     }
 
-    // Zeige die resultierende Nachricht an
     window.alert(resultMessage);
 }
 
-// Wenn der Spieler das Spiel gewonnen hat, wird das Guthaben angepasst
 function handleResult(result) {
     if (result === "win") {
         playerMoney += betAmount * 2;  // Spieler gewinnt
@@ -147,10 +141,9 @@ function handleResult(result) {
         playerMoney += betAmount; // Unentschieden, Einsatz zurück
     }
 
-    betAmount = 0;  // Einsatz zurücksetzen
-    updateMoneyDisplay();  // Guthaben und Einsatz aktualisieren
+    betAmount = 0;
+    updateMoneyDisplay();
 
-    // Wenn der Spieler kein Geld mehr hat
     if (playerMoney <= 0) {
         window.alert("Spiel vorbei! Du hast kein Geld mehr.");
         restart();
@@ -167,6 +160,9 @@ function restart() {
     betAmount = 0;
     betParagraph.innerHTML = 'Einsatz: $0';
     updateMoneyDisplay();
+
+    // Aktiviert den Start-Button wieder
+    startButton.disabled = false;
 }
 
 restartButton.addEventListener('click', restart);
